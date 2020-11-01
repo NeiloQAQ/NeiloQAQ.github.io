@@ -81,6 +81,13 @@
 
   
   <url>
+    <loc>http://example.com/tags/DesignParttren/</loc>
+    <lastmod>2020-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/tags/GOF/</loc>
     <lastmod>2020-11-01</lastmod>
     <changefreq>daily</changefreq>
@@ -89,13 +96,6 @@
   
   <url>
     <loc>http://example.com/tags/Design-Parttern/</loc>
-    <lastmod>2020-11-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/DesignParttren/</loc>
     <lastmod>2020-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
