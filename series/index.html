@@ -591,18 +591,6 @@ NexT.utils.loadComments('#gitalk-container', () => {
 </script>
 
 <script>
-NexT.utils.loadComments('#valine-comments', () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
-    new Valine(Object.assign({"enable":true,"appId":"p90esdlSbeJEUxNg2OI5cWrI-gzGzoHsz","appKey":"ACzclOQcO87UjWLGVmUqrFrw","serverURLs":"https://p90esdls.lc-cn-n1-shared.com","placeholder":"Just Say it!","avatar":["/images/lion.jpg","/images/wiz.jpg","fox2.jpg"],"meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
-      el: '#valine-comments',
-      path: "/series/",
-      serverURLs: "https://p90esdls.lc-cn-n1-shared.com"
-    }));
-  }, window.Valine);
-});
-</script>
-
-<script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
     refer: "series/"
@@ -615,6 +603,18 @@ NexT.utils.loadComments('#lv-container', () => {
     j.async = true;
     e.parentNode.insertBefore(j, e);
   })(document, 'script');
+});
+</script>
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"p90esdlSbeJEUxNg2OI5cWrI-gzGzoHsz","appKey":"ACzclOQcO87UjWLGVmUqrFrw","serverURLs":"https://p90esdls.lc-cn-n1-shared.com","placeholder":"Just Say it!","avatar":["/images/lion.jpg","/images/wiz.jpg","fox2.jpg"],"meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/series/",
+      serverURLs: "https://p90esdls.lc-cn-n1-shared.com"
+    }));
+  }, window.Valine);
 });
 </script>
 
