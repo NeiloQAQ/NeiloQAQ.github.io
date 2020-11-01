@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/foo/bar/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>foo</category>
+        <category>bar</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Proxy</title>
+    <url>/DesignParttern/proxy/</url>
+    <content><![CDATA[<h3 id="概述"><a href="#概述" class="headerlink" title="概述:"></a>概述:</h3><blockquote>
+<p>只在必要的时候生成实例</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="/resource/Proxy_sample.png" alt="Proxy_sample">  </p>
+<h3 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h3><ul>
+<li>案例说明：<blockquote>
+<p>示例程序实现了一个带名字的打印机(将名字显示到界面上)</p>
+</blockquote>
+</li>
+<li><img src="/resource/Proxy_uml_case_class.png" alt="Proxy_uml_case"> </li>
+<li>主要代码：</li>
+<li>PrinterProxy.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Gof.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrinterProxy</span> <span class="keyword">implements</span> <span class="title">Printable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;            <span class="comment">// 名字</span></span><br><span class="line">    <span class="keyword">private</span> Printer real;           <span class="comment">// “本人”</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PrinterProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PrinterProxy</span><span class="params">(String name)</span> </span>&#123;      <span class="comment">// 构造函数</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setPrinterName</span><span class="params">(String name)</span> </span>&#123;  <span class="comment">// 设置名字</span></span><br><span class="line">        <span class="keyword">if</span> (real != <span class="keyword">null</span>) &#123;</span><br><span class="line">            real.setPrinterName(name);  <span class="comment">// 同时设置“本人”的名字</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPrinterName</span><span class="params">()</span> </span>&#123;    <span class="comment">// 获取名字</span></span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String string)</span> </span>&#123;  <span class="comment">// 显示</span></span><br><span class="line">        realize();</span><br><span class="line">        real.print(string);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">realize</span><span class="params">()</span> </span>&#123;   <span class="comment">// 生成“本人”</span></span><br><span class="line">        <span class="keyword">if</span> (real == <span class="keyword">null</span>) &#123;</span><br><span class="line">            real = <span class="keyword">new</span> Printer(name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>时序图:<br><img src="/resource/Proxy_uml_case_sentense.png" alt="uml_sentense"></li>
+<li>代码链接：<a href="">传送门</a><h3 id="uml综述"><a href="#uml综述" class="headerlink" title="uml综述"></a>uml综述<img src="resource/./Proxy_uml.png" alt="Proxy_uml"></h3></li>
+<li>Subject(主体): subject角色定义了使用proxy角色和RealSubject角色之间具有一致性的接口.</li>
+<li>Proxy:尽量处理来自client角色的请求,proxy角色只有在必要的时候生成实例,proxy角色实现在Subject角色中定义的接口</li>
+<li>RealSubject(实际主体):会在proxy角色无法胜任角色时登场,同样实现了Subject角色定义的接口</li>
+<li>Client(请求者):使用proxy的角色.</li>
+</ul>
+<h3 id="收获："><a href="#收获：" class="headerlink" title="收获："></a>收获：</h3><ul>
+<li>使用代理人提高处理速度<blockquote>
+<p>如果我们在需要使用某个功能时才将其初始化,这可以帮助我们改善用户体验</p>
+</blockquote>
+</li>
+<li>代理与委托<blockquote>
+<p>代理人只代理他能解决的问题,当遇到他不能解决的问题,就会转交给本人解决,这里转交极为委托</p>
+</blockquote>
+</li>
+<li>题外话:<blockquote>
+<p>我们可以利用代理模式,访问首项内容,从某种程度上讲,java中public,private,protected关键字可以通过代理模式实现忽略,访问私有数据,保护数据等…另一方面,static静态变量(通过类加载生成)也可通过代理模式生成多个,因而从一定程度上讲,并不存在所谓的单例模式.<br>不过话又说回来,每个语言都有自己的优缺点,我们用语言是为了更好的服务程序,作为程序员的我们,为何要没事找事,这样写程序呢? 以上内容仅当做知识点听听极好!</p>
+</blockquote>
+</li>
+</ul>
+<p>###　相关设计模式：</p>
+<ul>
+<li>Adapter: Adapter模式适配两种具有不同接口的对象,以使它们可以一同工作,而proxy模式Subject与proxy角色的接口是相同的</li>
+<li>Decorator: Decorator模式使用的目的在于增加新的功能,而proxy模式(可以增加新的功能),更注重于添加代理人以减轻本人工作的负担!</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h3><p>此部分内容属于对GOF Design Pattern知识的初步认知阶段，参考书籍是结城浩的《图解设计模式》，简单易懂,十分推荐！<br>以上内容，作者一字一句码出来的，纯属不易，欢迎大家转载，转载是还请您表明出处。另外如果我有侵权行为，请在下方留言，确认后我会及时撤销相应内容，谢谢大家！</p>
+<p>PS: 欢迎大家来到我的小站,鸣谢！</p>
+<p>　</p>
+]]></content>
+      <categories>
+        <category>DesignParttern</category>
+      </categories>
+      <tags>
+        <tag>GOF</tag>
+        <tag>Design Parttern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Visitor</title>
+    <url>/DesignParttern/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/visitor/</url>
+    <content><![CDATA[<h3 id="概述"><a href="#概述" class="headerlink" title="概述:"></a>概述:</h3><blockquote>
+<p>访问数据结构并处理数据<br>visitor 模式中,数据结构与处理是分离开来的</p>
+</blockquote>
+<p><img src="/resource/Visitor_sample.png" alt="Visitor_sample">  </p>
+<h3 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h3><ul>
+<li><p>案例说明：</p>
+<blockquote>
+<p>使用composite模式中用的那个文件和文件夹作为访问者要访问的数据结构</p>
+</blockquote>
+</li>
+<li><p>类图: </p>
+</li>
+<li><p><img src="/resource/Visitor_uml_case.png" alt="Visitor_uml_case"> </p>
+</li>
+<li><p>主要代码：</p>
+</li>
+<li><p>ListVisitor.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Gof.Visitor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListVisitor</span> <span class="keyword">extends</span> <span class="title">Visitor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String currentdir = <span class="string">&quot;&quot;</span>;                         <span class="comment">// 当前访问的文件夹的名字</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(File file)</span> </span>&#123;                  <span class="comment">// 在访问文件时被调用</span></span><br><span class="line">        System.out.println(currentdir + <span class="string">&quot;/&quot;</span> + file);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Directory directory)</span> </span>&#123;   <span class="comment">// 在访问文件夹时被调用</span></span><br><span class="line">        System.out.println(currentdir + <span class="string">&quot;/&quot;</span> + directory);</span><br><span class="line">        String savedir = currentdir;</span><br><span class="line">        currentdir = currentdir + <span class="string">&quot;/&quot;</span> + directory.getName();</span><br><span class="line">        Iterator it = directory.iterator();</span><br><span class="line">        <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">            Entry entry = (Entry)it.next();</span><br><span class="line">            entry.accept(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        currentdir = savedir;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>时序图:<br><img src="/resource/Visitor_uml_case_sentense.png" alt="Visitor_uml_sentense"></p>
+</li>
+<li><p>代码链接：<a href="">传送门</a></p>
+<h3 id="uml综述"><a href="#uml综述" class="headerlink" title="uml综述"></a>uml综述<img src="/resource/./Visitor_uml.png" alt="Visitor_uml"></h3></li>
+<li><p>Visitor: visitor负责对数据结构中的每个具体的元素(concreteElement)声明一个用于访问xxx的xxxVisitor方法</p>
+</li>
+<li><p>ConcreteVisitor: 实现visitor角色所定义的接口</p>
+</li>
+<li><p>Element : 表示visitor 要访问的对象</p>
+</li>
+<li><p>ConcreteElement: 实现element定义的方法</p>
+</li>
+<li><p>ObjectStructure : 负责处理element角色的集合 </p>
+</li>
+</ul>
+<h3 id="收获："><a href="#收获：" class="headerlink" title="收获："></a>收获：</h3><ul>
+<li>开闭原则:对扩展开放,对修改关闭,即在不修改源代码的情况下,进行扩展(提高组件复用性)</li>
+<li>在Visitor模式中,concreteElement 和concreteVisitor这两个角色共同决定了实际进行的处理,这种消息处理一般叫做双重分发</li>
+<li>visitor目的是将处理从数据结构中分离开来,在本示例程序中,visitor提高了File和directory作为组件的独立性</li>
+<li>Visitor 工作所需的条件:element必须向visitor提供足够多的信息,但若公开了不应当公开的信息,将来对数据结构的改良就会变得非常困难</li>
+</ul>
+<p>###　相关设计模式：</p>
+<ul>
+<li>Iterator: 用于逐个遍历保存在数据结构中的元素</li>
+<li>Visitor: 对保存在数据结构中的元素进行某种特殊的处理</li>
+<li>Composite: visitor可能使用composite 模式</li>
+<li>Interpreter: 使用visitor访问语法树</li>
+</ul>
+<h3 id="Question"><a href="#Question" class="headerlink" title="Question:"></a>Question:</h3><blockquote>
+<p>Java对使用final修饰的类是无法继承的,如java.lang.String, String类貌似违背了开闭原则,但这实际上是有正当理由的,原因是?</p>
+</blockquote>
+<h3 id="Answer"><a href="#Answer" class="headerlink" title="Answer:"></a>Answer:</h3><blockquote>
+<p>效率原因,String是Java的基本类, java编译器以”不能继承String类”为前提,会对基本类String类的处理速度和内存消耗量都进行优化</p>
+</blockquote>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h3><p>此部分内容属于对GOF Design Pattern知识的初步认知阶段，参考书籍是结城浩的《图解设计模式》，简单易懂,十分推荐！<br>以上内容，作者一字一句码出来的，纯属不易，欢迎大家转载，转载是还请您表明出处。另外如果我有侵权行为，请在下方留言，确认后我会及时撤销相应内容，谢谢大家！</p>
+<p>PS:欢迎大家来到我的小站,鸣谢！</p>
+<p>　</p>
+]]></content>
+      <categories>
+        <category>DesignParttern</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>DesignParttren</tag>
+      </tags>
+  </entry>
+</search>
